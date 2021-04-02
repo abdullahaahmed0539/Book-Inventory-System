@@ -108,9 +108,29 @@ class employee{
         double salary;
 };
 
+class stock{
+    public:
+        //Constructor
+        stock(){
+
+        }
+    private:
+};
 
 
 
+
+string * credentials() {
+    static string credentials [2];
+    string username, password;
+
+    cout<< "Username: ";  cin >> username;
+    cout<<endl;
+    cout<< "Password: ";  cin >> password;
+
+    credentials[0] = username; credentials[1] = password;
+    return credentials;
+}
 
 
 int main (void) {
