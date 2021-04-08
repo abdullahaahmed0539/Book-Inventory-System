@@ -2,8 +2,13 @@
 #include <fstream>
 #include <iostream>
 #include <stdio.h>
+
 using namespace std;
 
+struct bookList{
+    string name;
+    int quantity;
+};
 
 class book{
 public:
@@ -62,8 +67,20 @@ public:
     void setPublisher(string bookPublisher){publisher = bookPublisher;}
     void setStockCount(int bookCount){stockCount = bookCount;}
     void setprice(float bookPrice){price = bookPrice;}
-    void setAvailability(bool status){available = status;}
+    void setAvailability(){
+        if(stockCount <=0){
+            available = false;
+        }else {
+            available = true;
+        }
+    }
 
+
+    //additional functions
+    void addStock(int q){
+        stockCount += q;
+        cout << "Ordered "<<q << " " << title <<" books. "<<endl << "Total quantity: "<<stockCount <<endl;
+    }
 
 private:
     string title, author, publisher;
@@ -152,14 +169,6 @@ class employee{
         double salary;
 };
 
-class stock{
-    public:
-        //Constructor
-        stock(){
-
-        }
-    private:
-};
 
 
 
@@ -168,8 +177,8 @@ string * credentials() {
     static string credentials [2];
     string id, password;
 
-    cout<< "ID: ";  cin >> id;
-    cout<< "Password: ";  cin >> password;
+    std::cout<< "ID: ";  std::cin >> id;
+    std::cout<< "Password: ";  std::cin >> password;
 
     credentials[0] = id; credentials[1] = password;
     return credentials;
@@ -180,18 +189,18 @@ void createEmployee(){
     string id,name, jobTitle, password;
     double salary;
 
-    cout << endl << "Enter ID: ";
-    cin >> id;
-    cout << endl << "Enter Name: ";
-    cin.ignore(); 
-    getline(cin, name);    
-    cout << endl << "Enter Job Title: ";
-    getline(cin, jobTitle);    
-    cout << endl << "Enter Salary: ";
-    cin >> salary;
-    cout << endl << "Enter Password: ";
-    cin.ignore(); 
-    getline(cin, password);
+    std::cout << endl << "Enter ID: ";
+    std::cin >> id;
+    std::cout << endl << "Enter Name: ";
+    std::cin.ignore(); 
+    getline(std::cin, name);    
+    std::cout << endl << "Enter Job Title: ";
+    getline(std::cin, jobTitle);    
+    std::cout << endl << "Enter Salary: ";
+    std::cin >> salary;
+    std::cout << endl << "Enter Password: ";
+    std::cin.ignore(); 
+    getline(std::cin, password);
 
     employee e = employee(id, name, jobTitle, salary, password);
     
@@ -206,33 +215,192 @@ void createEmployee(){
 }
 
 void customerUI(){
-    cout << "Customer Login" << endl;
+    std::cout << "Customer Login" << endl;
     string * loginDetails = credentials();
 
 }
+
+
 void staffUI(){
     char userInput;
+    bool authenticated,logIn;
+    string myText;
     string * loginDetails;
-    cout << "Staff Login" << endl << "Do you have an Account? (y/n) : ";
-    cin >> userInput;
+    cout << "***************************************" << endl;
+    cout << "--------------Staff Login--------------" << endl;
+    cout << "***************************************" << endl;
+    loginDetails = credentials ();
 
-    switch (userInput){
-        case 'y':
-            loginDetails = credentials();
-            break;
-        case 'Y':
-            loginDetails = credentials();
-            break;
-        case 'n':
-            createEmployee(); 
-            break;   
-        case 'N':
-            createEmployee();
-            break;
-        default:
-            cout << endl << "Incorrect choice" << endl;
+    ifstream empFile ("employee.txt");
+    while (getline (empFile, myText)){
+        if (myText == loginDetails[0]){
+            getline(empFile, myText);
+            if (myText == loginDetails[1]){
+                logIn = authenticated = true;
+                break;
+            }
+        }
     }
-}
+
+    if (authenticated){
+        while(logIn){ 
+        cout << endl << endl  << "----------------Session----------------" << endl;
+        cout<< "Press n-------->For creating new stock for a book." <<endl 
+        << "press b-------->For Book search." << endl
+        << "Press s-------->For stock status."<< endl
+        << "Press a-------->For adding books to stock." << endl
+        << "Press l--------> For Logging out."<<endl<<endl;
+
+        cout << "User Input: ";
+        cin >> userInput;
+
+        if(userInput == 'l'){
+            cout << "--------Terminating Session--------"<<endl;
+            logIn = false;
+        }else if (userInput=='b' || userInput=='s' || userInput=='a'){
+            string title;
+            bool isfound;
+            book b = book();
+            cout <<endl << "Enter book name: " ;
+            cin.ignore();
+            getline(cin , title);
+            cout << endl;
+
+            ifstream readBookFile ("book.txt");
+            while (getline (readBookFile, myText)){
+                if (myText == title){
+                    isfound = true;
+        
+                    b.setTitle(myText);
+                        
+                    getline(readBookFile, myText);
+                    b.setAuthor(myText);
+                        
+                    getline(readBookFile, myText);
+                    b.setPublisher(myText);
+                        
+                    getline(readBookFile, myText);
+                    int count = stoi (myText);
+                    b.setStockCount(count);
+
+                    b.setAvailability();
+
+                    getline(readBookFile, myText);
+                    getline(readBookFile, myText);
+                    float x = stof (myText);
+                    b.setprice(x);
+
+                    break;
+                }
+            }
+            
+            readBookFile.close();
+
+            if(isfound && userInput=='b'){
+
+                cout << "---------------Search Results---------------"<<endl;    
+                cout <<"TITLE: " <<b.getTitle() << endl 
+                     <<"AUTHOR: "<< b.getAuthor()<< endl
+                     <<"PUBLISHER: "<< b.getPublisher()<< endl
+                     << "AVAILABILILTY: "<< boolalpha <<b.getAvailability() << endl
+                     << "STOCK COUNT: "<< b.getStockCount()<< endl
+                     << "PRICE: $"<<b.getPrice() << endl; 
+                       
+                }else if(isfound && userInput=='s'){
+                    cout << "---------------Stock Query---------------"<<endl;
+                    cout  << "STOCK COUNT: "<< b.getStockCount()<< endl;
+                    if(!b.getAvailability()){
+                        cout << "OUT OF STOCK!"<< endl;
+                    }
+                }else if (isfound && userInput=='a'){
+                    int quantity;
+                    cout << "Enter quantity; ";
+                    cin >> quantity;
+
+                    cout << "---------------Stock Order---------------"<<endl;
+                    b.addStock(quantity);
+                    b.setAvailability();
+
+                    ofstream writeBookFile ("book1.txt", ios::app);
+                    ifstream readBookFile ("book.txt");
+
+                    while(getline(readBookFile,myText)){
+                        if(myText==b.getTitle()){
+                            writeBookFile << myText << endl;
+                            
+                            getline(readBookFile,myText);
+                            writeBookFile << myText << endl;
+
+                            getline(readBookFile,myText);
+                            writeBookFile << myText << endl;
+
+                            writeBookFile << b.getStockCount() << endl;
+
+                            getline(readBookFile,myText);
+                            getline(readBookFile,myText);
+                            writeBookFile << myText << endl;
+
+                            getline(readBookFile,myText);
+                            writeBookFile << myText << endl;
+
+                        }else{
+                            writeBookFile << myText << endl;
+                        }
+                    }
+                    remove("book.txt");
+                    rename("book1.txt","book.txt");
+
+                    readBookFile.close();
+                    writeBookFile.close();
+
+                }else{
+                    cout << "---------------Error---------------"<<endl;
+                    cout << "No Such book in your Inventory."<<endl;
+                }
+
+            }else if(userInput == 'n'){
+                book b = book();
+                string title, author, publisher;
+                float price;
+                int quantity;
+
+                cin.ignore();
+                cout << endl<<"Enter book title: ";
+                getline(cin , title);
+                b.setTitle(title);
+                cout << endl << "Enter book author: ";
+                getline(cin , author);
+                b.setAuthor(author);
+                cout << endl << "Enter book publisher: ";
+                getline(cin , publisher);
+                b.setPublisher(publisher);
+                cout << endl << "Enter Stock quantity: ";
+                cin >> quantity;
+                b.setStockCount(quantity);
+                cout << endl << "Enter book price: ";
+                cin >> price;
+                b.setprice(price);
+                b.setAvailability();
+
+                ofstream writeOnBookFile ("book.txt", ios::app);
+                writeOnBookFile << b.getTitle() <<endl << b.getAuthor() <<endl
+                <<b.getPublisher() <<endl << b.getStockCount() << endl << b.getAvailability() <<endl
+                << b.getPrice() <<endl;
+                writeOnBookFile.close();
+
+                cout <<endl<<endl <<"---------------Results---------------"<<endl;
+                cout<< "Book Added to Investory."<<endl;
+            }else{
+                cout << "---------------Error---------------"<<endl;
+                cout << "Invalid Command."<<endl;
+            }
+        }
+        }else{
+            cout << "---------------No Session---------------"<<endl;
+            cout << "Access Denied"<< endl;
+        }
+        
+    }
 
 
 void AdminUI(){
@@ -418,7 +586,7 @@ void AdminUI(){
             }             
             break;
         case 'g':
-            
+            //need to this
             break;
         default:
             cout<< "Illegal command";
@@ -427,6 +595,10 @@ void AdminUI(){
 }
 
 int main (void) {
-    AdminUI();
+   // AdminUI();
+     staffUI();  
+     
+
+    
     return 0;
 }
