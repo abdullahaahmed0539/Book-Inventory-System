@@ -758,7 +758,9 @@ if (authenticLogin){
     ofstream WriteFile ("employee.txt", ios :: app);
     ifstream rcusFile ("customer.txt");
     ofstream wcusFile ("customer1.txt", ios::app);
+    ifstream readingFile("customer.txt");
     string  n;
+    double yearlySales, monthlySales, quaterlySales = 0.0;
 
     switch(userInput){
         case 'c':
@@ -954,9 +956,31 @@ if (authenticLogin){
             }             
             break;
         case 'g':
-            //need to this
+            yearlySales = 0;
+            
+            while(getline(readingFile,myText)){
+                for (size_t i = 0; i < 3; i++)
+                {
+                    
+                    getline(readingFile,myText);
+                }
+              //  cout << myText<<endl;
+                yearlySales += stof(myText);
+                
+            }
+
+            monthlySales = yearlySales / 12;
+            quaterlySales = yearlySales / 4 ;
+
+            cout << "---------------Sales Report-------------------"<<endl;
+            cout << "Yearly revenue= "<< yearlySales<<endl;
+            cout << "Quaterly revenue= "<< quaterlySales<<endl;
+            cout << "Monthly revenue= "<< monthlySales<<endl;
+            cout << "----------------------------------------------"<<endl;
+
             remove("employee1.txt");
             remove("customer1.txt");
+            readingFile.close();
             break;
         case 'l':
             authenticLogin = false;
