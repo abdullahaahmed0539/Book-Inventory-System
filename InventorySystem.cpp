@@ -302,7 +302,7 @@ class customer{
                 cin >> userInput;
             }
             invoice = invoice +"\n"+ "TOTAL----------------------------------------$"+to_string(total)+"\n";
-            cout<<endl<<endl<<"*********************************************************************"<<endl;
+            cout<<endl<<endl<<"*****************************INVOICE********************************"<<endl;
             cout << invoice <<endl;
             return total;
         }
@@ -373,7 +373,7 @@ void customerUI(){
         ExistingCustomer = false;
     }else {
         cout << "***************ERROR*****************" << endl;
-        cout << endl << "Illegal Command. Choose between y or n";
+        cout << endl << "Illegal Command. Choose between y or n: ";
         cin >> userInput;
     }
 
@@ -417,7 +417,7 @@ void customerUI(){
     }else if (ExistingCustomer){
         ifstream rcustomerFile ("customer.txt");
         ofstream wcustomerFile ("customer1.txt", ios::app);
-        bool isfound;
+        bool isfound = false;
         string myText;
         string name;
 
@@ -523,7 +523,6 @@ void customerUI(){
 
 
 }
-
 
 void staffUI(){
     char userInput;
@@ -979,10 +978,30 @@ if (authenticLogin){
 }
 
 int main (void) {
-    AdminUI();
-   // staffUI();  
-    //customerUI();
-     
+    bool terminate;
+    char userInput;
+
+    while(!terminate){
+        cout <<endl<<endl<< "----------------------Home page-----------------------"<<endl;
+        cout << "Press s----------->For staff login." << endl << "Press a----------->For admin login." << endl << "Press c----------->To buy." << endl << "press t----------->To terminate."<<endl<< "User Input: "; 
+        cin >> userInput;
+
+        if(userInput =='s'){
+            staffUI();
+        }else if (userInput == 'a'){
+            AdminUI();
+        }else if (userInput == 't'){
+            terminate = true;
+            cout<<endl << "----------Program terminating----------"<<endl;
+        }else if (userInput == 'c'){
+            customerUI();
+        }else{
+            cout<<endl << "Illegal command. Try again."<<endl;
+        }
+
+
+    }
+
 
     
     return 0;

@@ -1,10 +1,5 @@
-0
-44244424
-abdullah
-softwareengineer
-160000
 1
-123456789987654321
+121212
 abdullah khan
 software engineer
 50000
@@ -27,11 +22,6 @@ civil engineer
 44544454
 ghazal
 house wife
-0
-6
-789456123
-ghazanfer
-CA
 200000
 7
 4454645

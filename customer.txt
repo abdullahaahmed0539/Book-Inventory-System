@@ -1,7 +1,7 @@
 abdullah ahmed khan
 a@gmail.com
 0300-2457896
-2495.4
+21495
 faiqa ahmed khan
 f@gmail.com
 0300-2947896
@@ -10,3 +10,11 @@ sameena nadeem
 s@gmail.com
 0300-5454545
 20.6
+farukh
+farukh
+106451351
+129.5
+abdul
+a@hotmail.com
+123465
+-nan
