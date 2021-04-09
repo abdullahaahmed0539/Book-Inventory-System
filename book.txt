@@ -1,24 +1,30 @@
 harry potter
 jk rowling
 pak publishers
-20
+984
 1
 20.6
 lord of the rings
 tolkens
 pak publishers
-470
+500
 1
 10
 the hobbit
 tolken
 pak pub
-100
+13
 1
 50
 inception
 abdullah
 pak pub
-79
+60
 1
 50.6
+millionare next door
+kim kertoses
+abc pub
+1000
+1
+10
