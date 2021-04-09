@@ -3,34 +3,39 @@ jk rowling
 pak publishers
 980
 1
-20.6
+10.0
 lord of the rings
 tolkens
 pak publishers
 495
 1
-10
+10.0
 the hobbit
 tolken
-pak pub
+pak publishers
 112
 1
-50
+15.0
 inception
-abdullah
-pak pub
+may andie
+pak publisher
 60
 1
 50.6
 millionare next door
 kim kertoses
-abc pub
+abc publishers
 1000
 1
-10
+10.5
 red riding hood
 marium usman
-abc publisher
+abc publishers
 500
 1
-20
+25.5
+rich dad poor dad
+robert kiyosaki
+new york publishers
+100
+5.5

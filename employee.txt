@@ -1,40 +1,40 @@
 1
-121212
+password1234!
 abdullah khan
 software engineer
 50000
 2
-44244424poi
+password1234!
 khan shab
 prime minister
 87000
 3
-442467814
+password1234!
 faraz ahmed
-disco disco
+dj jockie
 78
 4
-123456
-talha
+password1234!
+talha hussain
 civil engineer
 10000
 5
-44544454
-ghazal
+password1234!
+ghazal khan
 house wife
 200000
 7
-4454645
-hamza
+password1234!
+hamza hussaini
 no job
 78144
 8
-4562
-waqas
+password1234!
+waqas umer
 lab assistant
 54646
 9
-484848
-faizan paacha
+password1234!
+faizan paasha
 gardener
 10000
