@@ -200,8 +200,9 @@ class customer{
 
         double buy (){
             char userInput = 'y';
-            double total,i = 0;
+            double i = 0;
             string invoice = "";
+            double total = 0;
             while(userInput == 'y'){                
                 cout <<endl << "Enter the book you want to buy: ";
                 string title;
@@ -286,8 +287,8 @@ class customer{
                         if(b.getStockCount()==0){
                             b.setAvailability();
                         }
-
                         total += (b.getPrice() * quantity);
+                        
                         invoice = invoice + "TITLE: "+b.getTitle() + "--------" + "RATE: $"+to_string(b.getPrice())+"--------"+ "Quantity: "+to_string(quantity)+" units--------"+"Cost: $" +to_string((b.getPrice() * quantity))+"\n";
                         
                     }else {

@@ -1,19 +1,19 @@
 harry potter
 jk rowling
 pak publishers
-980
+971
 1
 10.0
 lord of the rings
 tolkens
 pak publishers
-495
+457
 1
 10.0
 the hobbit
 tolken
 pak publishers
-112
+24
 1
 15.0
 inception
@@ -37,5 +37,6 @@ abc publishers
 rich dad poor dad
 robert kiyosaki
 new york publishers
-100
+47
+1
 5.5
